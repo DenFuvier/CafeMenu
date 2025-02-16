@@ -1,26 +1,54 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CafeMenu
 {
     public partial class Start_Form : Form
     {
-
+        SqlConnector SQL = new SqlConnector();
+        private bool isInitializing = true; 
+        private bool isPasswordChecked = false;
         public Start_Form()
         {
             InitializeComponent();
             CentreMethod();
             ZeroEnable();
-        }
+            SellB.Items.AddRange(new string[] { "0%", "5%", "10%", "15%", "20%" });
+            SellB.SelectedIndex = 0;
+            SellB.SelectedIndexChanged += SellB_SelectedIndexChanged;
+            H24.ReadOnly = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.Load += Start_Form_Load;
 
+            isInitializing = false;
+        }
+        private void DiscountComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalculateTotal();
+        }
+        private void Start_Form_Load(object sender, EventArgs e)
+        {
+            FillMainDishesTextBoxes();
+            FillSnacksTextBoxes();
+            FillDrinksTextBoxes();
+            FillDessertsTextBoxes();
+        }
+        private decimal ApplyDiscount(decimal total)
+        {
+            string discountText = SellB.SelectedItem.ToString();
+            discountText = discountText.Replace("%", "");
+
+            if (decimal.TryParse(discountText, out decimal discount))
+            {
+                decimal discountAmount = total * (discount / 100);
+                return total - discountAmount;
+            }
+            return total;
+        }
         private void Exit_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
@@ -35,7 +63,7 @@ namespace CafeMenu
             }
         }
 
-        
+
         public void CentreMethod()
         {
             H1.TextAlign = HorizontalAlignment.Center;
@@ -574,18 +602,309 @@ namespace CafeMenu
             R21.Checked = false;
             R22.Checked = false;
             R23.Checked = false;
-        
+            FillMainDishesTextBoxes();
+            FillSnacksTextBoxes();
+            FillDrinksTextBoxes();
+            FillDessertsTextBoxes();
+       
+            H24.Text = "0";
 
         }
-
+        private bool isPasswordCheckInProgress = false;
         private void SellB_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (isInitializing) return; // Пропускаем, если идет инициализация
 
+            // Если скидка больше 0% и пароль еще не проверялся
+            if (SellB.SelectedIndex > 0 && !isPasswordChecked)
+            {
+                using (PasswordForm passwordForm = new PasswordForm())
+                {
+                    if (passwordForm.ShowDialog() == DialogResult.OK && passwordForm.IsPasswordCorrect)
+                    {
+                        MessageBox.Show("Верно...", "Доступ разрешен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        isPasswordChecked = true; // Пароль проверен
+                    }
+                    else
+                    {
+                        SellB.SelectedIndex = 0; // Сбрасываем скидку, если пароль неверный
+                        return; // Выходим из метода
+                    }
+                }
+            }
+
+            // Пересчитываем итоговую сумму с учетом скидки
+            CalculateTotal();
         }
 
-        private void label8_Click(object sender, EventArgs e)
+        private List<A> GetMainDishes()
         {
+            List<A> mainDishesList = new List<A>();
+            string cs = SQL.GetConnect();
 
+            try
+            {
+                using (var con = new MySqlConnection(cs))
+                {
+                    con.Open();
+                    var stm = "SELECT ID, ProductName, Price FROM maindishes";
+                    var cmd = new MySqlCommand(stm, con);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            A mainDish = new A
+                            {
+                                Id = reader.GetInt32("ID"),
+                                ProductName = reader.GetString("ProductName"),
+                                Price = reader.GetDecimal("Price")
+                            };
+                            mainDishesList.Add(mainDish);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+            }
+
+            return mainDishesList;
+        }
+
+        private List<B> GetSnacks()
+        {
+            List<B> snacksList = new List<B>();
+            string cs = SQL.GetConnect();
+
+            try
+            {
+                using (var con = new MySqlConnection(cs))
+                {
+                    con.Open();
+                    var stm = "SELECT ID, ProductName, Price FROM snacks";
+                    var cmd = new MySqlCommand(stm, con);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            B snack = new B
+                            {
+                                Id = reader.GetInt32("ID"),
+                                ProductName = reader.GetString("ProductName"),
+                                Price = reader.GetDecimal("Price")
+                            };
+                            snacksList.Add(snack);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+            }
+
+            return snacksList;
+        }
+
+        private List<C> GetDrinks()
+        {
+            List<C> drinksList = new List<C>();
+            string cs = SQL.GetConnect();
+
+            try
+            {
+                using (var con = new MySqlConnection(cs))
+                {
+                    con.Open();
+                    var stm = "SELECT ID, ProductName, Price FROM drinks";
+                    var cmd = new MySqlCommand(stm, con);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            C drink = new C
+                            {
+                                Id = reader.GetInt32("ID"),
+                                ProductName = reader.GetString("ProductName"),
+                                Price = reader.GetDecimal("Price")
+                            };
+                            drinksList.Add(drink);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+            }
+
+            return drinksList;
+        }
+
+        private List<D> GetDesserts()
+        {
+            List<D> dessertsList = new List<D>();
+            string cs = SQL.GetConnect();
+
+            try
+            {
+                using (var con = new MySqlConnection(cs))
+                {
+                    con.Open();
+                    var stm = "SELECT ID, ProductName, Price FROM desserts";
+                    var cmd = new MySqlCommand(stm, con);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            D dessert = new D
+                            {
+                                Id = reader.GetInt32("ID"),
+                                ProductName = reader.GetString("ProductName"),
+                                Price = reader.GetDecimal("Price")
+                            };
+                            dessertsList.Add(dessert);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+            }
+
+            return dessertsList;
+        }
+        private void FillMainDishesTextBoxes()
+        {
+            var mainDishes = GetMainDishes();
+
+            if (mainDishes.Count >= 1) H1.Text = mainDishes[0].Price.ToString();
+            if (mainDishes.Count >= 2) H2.Text = mainDishes[1].Price.ToString();
+            if (mainDishes.Count >= 3) H3.Text = mainDishes[2].Price.ToString();
+            if (mainDishes.Count >= 4) H4.Text = mainDishes[3].Price.ToString();
+            if (mainDishes.Count >= 5) H5.Text = mainDishes[4].Price.ToString();
+            if (mainDishes.Count >= 6) H6.Text = mainDishes[5].Price.ToString();
+            if (mainDishes.Count >= 7) H7.Text = mainDishes[6].Price.ToString();
+            if (mainDishes.Count >= 8) H8.Text = mainDishes[7].Price.ToString();
+            if (mainDishes.Count >= 9) H9.Text = mainDishes[8].Price.ToString();
+            if (mainDishes.Count >= 10) H10.Text = mainDishes[9].Price.ToString();
+        }
+
+        private void FillSnacksTextBoxes()
+        {
+            var snacks = GetSnacks();
+
+            if (snacks.Count >= 1) H11.Text = snacks[0].Price.ToString();
+            if (snacks.Count >= 2) H12.Text = snacks[1].Price.ToString();
+            if (snacks.Count >= 3) H13.Text = snacks[2].Price.ToString();
+            if (snacks.Count >= 4) H14.Text = snacks[3].Price.ToString();
+        }
+
+        private void FillDrinksTextBoxes()
+        {
+            var drinks = GetDrinks();
+
+            if (drinks.Count >= 1) H15.Text = drinks[0].Price.ToString();
+            if (drinks.Count >= 2) H16.Text = drinks[1].Price.ToString();
+            if (drinks.Count >= 3) H17.Text = drinks[2].Price.ToString();
+            if (drinks.Count >= 4) H18.Text = drinks[3].Price.ToString();
+        }
+
+        private void FillDessertsTextBoxes()
+        {
+            var desserts = GetDesserts();
+
+            if (desserts.Count >= 1) H19.Text = desserts[0].Price.ToString();
+            if (desserts.Count >= 2) H20.Text = desserts[1].Price.ToString();
+            if (desserts.Count >= 3) H21.Text = desserts[2].Price.ToString();
+            if (desserts.Count >= 4) H22.Text = desserts[3].Price.ToString();
+            if (desserts.Count >= 5) H23.Text = desserts[4].Price.ToString();
+        }
+
+        private decimal GetAmount(CheckBox checkBox, TextBox quantityBox, string productName)
+        {
+            int quantity = 0;
+            decimal price = GetPriceFromDatabase(productName);
+
+            if (checkBox.Checked)
+            {
+                if (!string.IsNullOrWhiteSpace(quantityBox.Text))
+                {
+                    int.TryParse(quantityBox.Text, out quantity);
+                }
+
+                return quantity * price;
+            }
+            return 0;
+        }
+
+        private decimal GetPriceFromDatabase(string productName)
+        {
+            decimal price = 0;
+            string query = "SELECT Price FROM maindishes WHERE ProductName = @ProductName " +
+                           "UNION ALL SELECT Price FROM snacks WHERE ProductName = @ProductName " +
+                           "UNION ALL SELECT Price FROM drinks WHERE ProductName = @ProductName " +
+                           "UNION ALL SELECT Price FROM desserts WHERE ProductName = @ProductName";
+
+            using (MySqlConnection conn = new MySqlConnection(SQL.GetConnect()))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ProductName", productName);
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        decimal.TryParse(result.ToString(), out price);
+                    }
+                }
+            }
+            return price;
+        }
+        private void CalculateTotal()
+        {
+            decimal total = 0;
+
+            total += GetAmount(R1, H1, "Салат \"Гомер\"");
+            total += GetAmount(R2, H2, "Суп \"Римская охота\"");
+            total += GetAmount(R3, H3, "Куриные рулетики с сыром");
+            total += GetAmount(R4, H4, "Салат \"Виноградная гроздь\" с курицей");
+            total += GetAmount(R5, H5, "Дукка по-египетски");
+            total += GetAmount(R6, H6, "Паста с соусом песто и курицей");
+            total += GetAmount(R7, H7, "Фисташковый стейк с грибным соусом");
+            total += GetAmount(R8, H8, "Лосось в медово-горчичном соусе");
+            total += GetAmount(R9, H9, "Овощное рагу с пряными травами");
+            total += GetAmount(R10, H10, "Говядина по-азиатски с рисом");
+
+            total += GetAmount(R11, H11, "Чипсы из батата");
+            total += GetAmount(R12, H12, "Фисташковые гренки с сырным соусом");
+            total += GetAmount(R13, H13, "Мини-лепёшки с хумусом");
+            total += GetAmount(R14, H14, "Куриные наггетсы с ореховой панировкой");
+
+            total += GetAmount(R15, H15, "Фисташковый латте");
+            total += GetAmount(R16, H16, "Малиновый лимонад");
+            total += GetAmount(R17, H17, "Облепиховый чай с мёдом");
+            total += GetAmount(R18, H18, "Какао с маршмеллоу");
+
+            total += GetAmount(R19, H19, "Шоколадный мусс с фисташками");
+            total += GetAmount(R20, H20, "Фисташковый чизкейк");
+            total += GetAmount(R21, H21, "Ягодный торт");
+            total += GetAmount(R22, H22, "Эклеры с ванильным кремом");
+            total += GetAmount(R23, H23, "Брауни с карамелью");
+
+            decimal totalWithDiscount = ApplyDiscount(total);
+
+            H24.Text = totalWithDiscount.ToString("0.00");
+        }
+        private void ssell_Click(object sender, EventArgs e)
+        {
+            CalculateTotal();
         }
     }
 }

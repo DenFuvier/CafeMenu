@@ -70,7 +70,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.Exit = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ssell = new System.Windows.Forms.Button();
             this.Reset = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -95,7 +95,7 @@
             this.R20 = new System.Windows.Forms.CheckBox();
             this.R19 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.SELL = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -494,11 +494,6 @@
             // 
             this.SellB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SellB.FormattingEnabled = true;
-            this.SellB.Items.AddRange(new object[] {
-            "3%",
-            "10%",
-            "15%",
-            "50%"});
             this.SellB.Location = new System.Drawing.Point(268, 71);
             this.SellB.Margin = new System.Windows.Forms.Padding(2);
             this.SellB.Name = "SellB";
@@ -559,7 +554,6 @@
             this.label8.Size = new System.Drawing.Size(60, 18);
             this.label8.TabIndex = 6;
             this.label8.Text = "Скидка";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label7
             // 
@@ -577,7 +571,7 @@
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel5.Controls.Add(this.Exit);
-            this.panel5.Controls.Add(this.button1);
+            this.panel5.Controls.Add(this.ssell);
             this.panel5.Controls.Add(this.Reset);
             this.panel5.Location = new System.Drawing.Point(2, 214);
             this.panel5.Margin = new System.Windows.Forms.Padding(2);
@@ -596,15 +590,16 @@
             this.Exit.UseVisualStyleBackColor = true;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // button1
+            // ssell
             // 
-            this.button1.Location = new System.Drawing.Point(22, 19);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 32);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Оплатить";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ssell.Location = new System.Drawing.Point(22, 19);
+            this.ssell.Margin = new System.Windows.Forms.Padding(2);
+            this.ssell.Name = "ssell";
+            this.ssell.Size = new System.Drawing.Size(95, 32);
+            this.ssell.TabIndex = 1;
+            this.ssell.Text = "Оплатить";
+            this.ssell.UseVisualStyleBackColor = true;
+            this.ssell.Click += new System.EventHandler(this.ssell_Click);
             // 
             // Reset
             // 
@@ -880,21 +875,21 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "Десерты";
             // 
-            // label6
+            // SELL
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Parchment", 72F);
-            this.label6.Location = new System.Drawing.Point(338, 8);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(518, 102);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Restaurant \"Fistashka\"";
+            this.SELL.AutoSize = true;
+            this.SELL.Font = new System.Drawing.Font("Parchment", 72F);
+            this.SELL.Location = new System.Drawing.Point(338, 8);
+            this.SELL.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.SELL.Name = "SELL";
+            this.SELL.Size = new System.Drawing.Size(518, 102);
+            this.SELL.TabIndex = 0;
+            this.SELL.Text = "Restaurant \"Fistashka\"";
             // 
             // panel7
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel7.Controls.Add(this.label6);
+            this.panel7.Controls.Add(this.SELL);
             this.panel7.Location = new System.Drawing.Point(6, 7);
             this.panel7.Margin = new System.Windows.Forms.Padding(2);
             this.panel7.Name = "panel7";
@@ -958,7 +953,7 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Button Reset;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ssell;
         private System.Windows.Forms.CheckBox R10;
         private System.Windows.Forms.CheckBox R9;
         private System.Windows.Forms.CheckBox R8;
@@ -966,7 +961,7 @@
         private System.Windows.Forms.CheckBox R17;
         private System.Windows.Forms.CheckBox R16;
         private System.Windows.Forms.CheckBox R15;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label SELL;
         private System.Windows.Forms.TextBox H10;
         private System.Windows.Forms.TextBox H3;
         private System.Windows.Forms.TextBox H2;
