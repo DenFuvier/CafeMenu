@@ -13,29 +13,6 @@ namespace CafeMenu
 {
     public partial class Start_Form : Form
     {
-        double Price_SaladHomer = 350.0;
-        double Price_SweetPotatoChips = 250.0;
-        double Price_PistachioLatte = 280.0;
-        double Price_SoupRomanHunt = 420.0;
-        double Price_RaspberryLemonade = 230.0;
-        double Price_PistachioCroutonsWithCheeseSauce = 270.0;
-        double Price_ChickenRollsWithCheese = 390.0;
-        double Price_MiniFlatbreadsWithHummus = 300.0;
-        double Price_SeaBuckthornTeaWithHoney = 260.0;
-        double Price_SaladGrapeBunchWithChicken = 370.0;
-        double Price_ChickenNuggetsWithNutBreading = 330.0;
-        double Price_CocoaWithMarshmallow = 240.0;
-        double Price_DukkahEgyptian = 310.0;
-        double Price_PastaPestoWithChicken = 460.0;
-        double Price_ChocolateMousseWithPistachios = 350.0;
-        double Price_PistachioSteakWithMushroomSauce = 700.0;
-        double Price_PistachioCheesecake = 390.0;
-        double Price_SalmonHoneyMustardSauce = 720.0;
-        double Price_BerryCake = 450.0;
-        double Price_VegetableRagoutWithHerbs = 340.0;
-        double Price_EclairsWithVanillaCream = 320.0;
-        double Price_BeefAsianStyleWithRice = 690.0;
-        double Price_BrownieWithCaramel = 360.0;
 
         public Start_Form()
         {
@@ -598,6 +575,16 @@ namespace CafeMenu
             R22.Checked = false;
             R23.Checked = false;
         
+
+        }
+
+        private void SellB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
 
         }
     }

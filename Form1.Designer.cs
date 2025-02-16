@@ -499,11 +499,12 @@
             "10%",
             "15%",
             "50%"});
-            this.SellB.Location = new System.Drawing.Point(268, 82);
+            this.SellB.Location = new System.Drawing.Point(268, 71);
             this.SellB.Margin = new System.Windows.Forms.Padding(2);
             this.SellB.Name = "SellB";
             this.SellB.Size = new System.Drawing.Size(128, 21);
             this.SellB.TabIndex = 25;
+            this.SellB.SelectedIndexChanged += new System.EventHandler(this.SellB_SelectedIndexChanged);
             // 
             // panel8
             // 
@@ -552,12 +553,13 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F);
-            this.label8.Location = new System.Drawing.Point(145, 85);
+            this.label8.Location = new System.Drawing.Point(145, 74);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(60, 18);
             this.label8.TabIndex = 6;
             this.label8.Text = "Скидка";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label7
             // 
