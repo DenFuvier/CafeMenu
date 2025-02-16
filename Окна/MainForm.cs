@@ -2,13 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using QRCoder;
+using System.Drawing;
+using SixLabors.ImageSharp.PixelFormats;
+using System.IO;
 
 namespace CafeMenu
 {
     public partial class Start_Form : Form
     {
         SqlConnector SQL = new SqlConnector();
-        private bool isInitializing = true; 
+        private bool isInitializing = true;
         private bool isPasswordChecked = false;
         public Start_Form()
         {
@@ -606,7 +610,7 @@ namespace CafeMenu
             FillSnacksTextBoxes();
             FillDrinksTextBoxes();
             FillDessertsTextBoxes();
-       
+
             H24.Text = "0";
 
         }
@@ -904,7 +908,36 @@ namespace CafeMenu
         }
         private void ssell_Click(object sender, EventArgs e)
         {
+            decimal totalWithDiscount = CalculateTotal();
+
+            string paymentDetails = $"Оплата: {totalWithDiscount.ToString("0.00")} руб.\nНомер карты: 1234 5678 9012 3456";
+
+            // Генерация QR-кода
+            GenerateQRCode(paymentDetails);
             CalculateTotal();
         }
+
+
+        private void GenerateQRCode(string paymentDetails)
+        {
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(paymentDetails, QRCodeGenerator.ECCLevel.Q);
+
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(20);
+
+            // Конвертируем System.Drawing.Bitmap в SixLabors.ImageSharp.Image
+            using (var memoryStream = new MemoryStream())
+            {
+                qrCodeImage.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                memoryStream.Position = 0;
+                var imageSharpImage = Image.Load<Rgba32>(memoryStream);
+
+                // Теперь imageSharpImage можно использовать
+                // Например, сохранить в файл:
+                imageSharpImage.Save("qrcode.png");
+            }
+        }
     }
+
 }

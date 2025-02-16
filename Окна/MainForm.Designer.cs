@@ -97,6 +97,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.SELL = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.pictureBoxQRCode = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -104,6 +105,7 @@
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRCode)).BeginInit();
             this.SuspendLayout();
             // 
             // R1
@@ -475,6 +477,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.pictureBoxQRCode);
             this.panel3.Controls.Add(this.SellB);
             this.panel3.Controls.Add(this.panel8);
             this.panel3.Controls.Add(this.PayMoment);
@@ -896,6 +899,14 @@
             this.panel7.Size = new System.Drawing.Size(1126, 123);
             this.panel7.TabIndex = 13;
             // 
+            // pictureBoxQRCode
+            // 
+            this.pictureBoxQRCode.Location = new System.Drawing.Point(3, 108);
+            this.pictureBoxQRCode.Name = "pictureBoxQRCode";
+            this.pictureBoxQRCode.Size = new System.Drawing.Size(120, 101);
+            this.pictureBoxQRCode.TabIndex = 26;
+            this.pictureBoxQRCode.TabStop = false;
+            // 
             // Start_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -926,6 +937,7 @@
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRCode)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1000,6 +1012,7 @@
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.TextBox H4;
         private System.Windows.Forms.ComboBox SellB;
+        private System.Windows.Forms.PictureBox pictureBoxQRCode;
     }
 }
 
