@@ -61,6 +61,7 @@
             this.H12 = new System.Windows.Forms.TextBox();
             this.H11 = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pictureBoxQRCode = new System.Windows.Forms.PictureBox();
             this.SellB = new System.Windows.Forms.ComboBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.PayMoment = new System.Windows.Forms.ComboBox();
@@ -97,15 +98,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.SELL = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.pictureBoxQRCode = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRCode)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRCode)).BeginInit();
             this.SuspendLayout();
             // 
             // R1
@@ -493,6 +493,14 @@
             this.panel3.Size = new System.Drawing.Size(416, 285);
             this.panel3.TabIndex = 10;
             // 
+            // pictureBoxQRCode
+            // 
+            this.pictureBoxQRCode.Location = new System.Drawing.Point(3, 108);
+            this.pictureBoxQRCode.Name = "pictureBoxQRCode";
+            this.pictureBoxQRCode.Size = new System.Drawing.Size(120, 101);
+            this.pictureBoxQRCode.TabIndex = 26;
+            this.pictureBoxQRCode.TabStop = false;
+            // 
             // SellB
             // 
             this.SellB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -526,6 +534,7 @@
             this.PayMoment.Name = "PayMoment";
             this.PayMoment.Size = new System.Drawing.Size(116, 21);
             this.PayMoment.TabIndex = 23;
+            this.PayMoment.SelectedIndexChanged += new System.EventHandler(this.PayMoment_SelectedIndexChanged);
             // 
             // H24
             // 
@@ -899,14 +908,6 @@
             this.panel7.Size = new System.Drawing.Size(1126, 123);
             this.panel7.TabIndex = 13;
             // 
-            // pictureBoxQRCode
-            // 
-            this.pictureBoxQRCode.Location = new System.Drawing.Point(3, 108);
-            this.pictureBoxQRCode.Name = "pictureBoxQRCode";
-            this.pictureBoxQRCode.Size = new System.Drawing.Size(120, 101);
-            this.pictureBoxQRCode.TabIndex = 26;
-            this.pictureBoxQRCode.TabStop = false;
-            // 
             // Start_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -930,6 +931,7 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRCode)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -937,7 +939,6 @@
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRCode)).EndInit();
             this.ResumeLayout(false);
 
         }

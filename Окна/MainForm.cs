@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using QRCoder;
 using System.Drawing;
-using SixLabors.ImageSharp.PixelFormats;
 using System.IO;
 
 namespace CafeMenu
@@ -906,38 +904,34 @@ namespace CafeMenu
 
             H24.Text = totalWithDiscount.ToString("0.00");
         }
-        private void ssell_Click(object sender, EventArgs e)
+        private void PayMoment_SelectedIndexChanged(object sender, EventArgs e)
         {
-            decimal totalWithDiscount = CalculateTotal();
-
-            string paymentDetails = $"Оплата: {totalWithDiscount.ToString("0.00")} руб.\nНомер карты: 1234 5678 9012 3456";
-
-            // Генерация QR-кода
-            GenerateQRCode(paymentDetails);
-            CalculateTotal();
-        }
-
-
-        private void GenerateQRCode(string paymentDetails)
-        {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(paymentDetails, QRCodeGenerator.ECCLevel.Q);
-
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(20);
-
-            // Конвертируем System.Drawing.Bitmap в SixLabors.ImageSharp.Image
-            using (var memoryStream = new MemoryStream())
+            if (PayMoment.SelectedItem?.ToString() == "QR-код")
             {
-                qrCodeImage.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-                memoryStream.Position = 0;
-                var imageSharpImage = Image.Load<Rgba32>(memoryStream);
-
-                // Теперь imageSharpImage можно использовать
-                // Например, сохранить в файл:
-                imageSharpImage.Save("qrcode.png");
+                LoadQRCodeImage("qrcode.jpg");
+            }
+            else
+            {
+                pictureBoxQRCode.Image = null;
             }
         }
-    }
+        private void LoadQRCodeImage(string imagePath)
+        {
+            if (File.Exists(imagePath))
+            {
+                pictureBoxQRCode.Image = Image.FromFile(imagePath);
 
+                pictureBoxQRCode.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            else
+            {
+                MessageBox.Show("Файл QR-кода не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ssell_Click(object sender, EventArgs e)
+        {
+            CalculateTotal();
+        }
+    }
 }
