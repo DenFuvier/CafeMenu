@@ -39,18 +39,7 @@ namespace CafeMenu
             FillDrinksTextBoxes();
             FillDessertsTextBoxes();
         }
-        private decimal ApplyDiscount(decimal total)
-        {
-            string discountText = SellB.SelectedItem.ToString();
-            discountText = discountText.Replace("%", "");
-
-            if (decimal.TryParse(discountText, out decimal discount))
-            {
-                decimal discountAmount = total * (discount / 100);
-                return total - discountAmount;
-            }
-            return total;
-        }
+       
         private void Exit_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
@@ -615,9 +604,9 @@ namespace CafeMenu
         private bool isPasswordCheckInProgress = false;
         private void SellB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (isInitializing) return; // Пропускаем, если идет инициализация
+            if (isInitializing) return; 
 
-            // Если скидка больше 0% и пароль еще не проверялся
+           
             if (SellB.SelectedIndex > 0 && !isPasswordChecked)
             {
                 using (PasswordForm passwordForm = new PasswordForm())
@@ -625,23 +614,23 @@ namespace CafeMenu
                     if (passwordForm.ShowDialog() == DialogResult.OK && passwordForm.IsPasswordCorrect)
                     {
                         MessageBox.Show("Верно...", "Доступ разрешен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        isPasswordChecked = true; // Пароль проверен
+                        isPasswordChecked = true; 
                     }
                     else
                     {
-                        SellB.SelectedIndex = 0; // Сбрасываем скидку, если пароль неверный
-                        return; // Выходим из метода
+                        SellB.SelectedIndex = 0; 
+                        return; 
                     }
                 }
             }
 
-            // Пересчитываем итоговую сумму с учетом скидки
+         
             CalculateTotal();
         }
 
-        private List<A> GetMainDishes()
+        private List<Maindishes> GetMainDishes()
         {
-            List<A> mainDishesList = new List<A>();
+            List<Maindishes> mainDishesList = new List<Maindishes>();
             string cs = SQL.GetConnect();
 
             try
@@ -656,7 +645,7 @@ namespace CafeMenu
                     {
                         while (reader.Read())
                         {
-                            A mainDish = new A
+                            Maindishes mainDish = new Maindishes
                             {
                                 Id = reader.GetInt32("ID"),
                                 ProductName = reader.GetString("ProductName"),
@@ -675,9 +664,9 @@ namespace CafeMenu
             return mainDishesList;
         }
 
-        private List<B> GetSnacks()
+        private List<Snack> GetSnacks()
         {
-            List<B> snacksList = new List<B>();
+            List<Snack> snacksList = new List<Snack>();
             string cs = SQL.GetConnect();
 
             try
@@ -692,7 +681,7 @@ namespace CafeMenu
                     {
                         while (reader.Read())
                         {
-                            B snack = new B
+                            Snack snack = new Snack
                             {
                                 Id = reader.GetInt32("ID"),
                                 ProductName = reader.GetString("ProductName"),
@@ -711,9 +700,9 @@ namespace CafeMenu
             return snacksList;
         }
 
-        private List<C> GetDrinks()
+        private List<Drink> GetDrinks()
         {
-            List<C> drinksList = new List<C>();
+            List<Drink> drinksList = new List<Drink>();
             string cs = SQL.GetConnect();
 
             try
@@ -728,7 +717,7 @@ namespace CafeMenu
                     {
                         while (reader.Read())
                         {
-                            C drink = new C
+                            Drink drink = new Drink
                             {
                                 Id = reader.GetInt32("ID"),
                                 ProductName = reader.GetString("ProductName"),
@@ -747,9 +736,9 @@ namespace CafeMenu
             return drinksList;
         }
 
-        private List<D> GetDesserts()
+        private List<Desserts> GetDesserts()
         {
-            List<D> dessertsList = new List<D>();
+            List<Desserts> dessertsList = new List<Desserts>();
             string cs = SQL.GetConnect();
 
             try
@@ -764,7 +753,7 @@ namespace CafeMenu
                     {
                         while (reader.Read())
                         {
-                            D dessert = new D
+                            Desserts dessert = new Desserts
                             {
                                 Id = reader.GetInt32("ID"),
                                 ProductName = reader.GetString("ProductName"),
@@ -915,6 +904,18 @@ namespace CafeMenu
                 pictureBoxQRCode.Image = null;
             }
         }
+        private decimal ApplyDiscount(decimal total)
+        {
+            string discountText = SellB.SelectedItem.ToString();
+            discountText = discountText.Replace("%", "");
+
+            if (decimal.TryParse(discountText, out decimal discount))
+            {
+                decimal discountAmount = total * (discount / 100);
+                return total - discountAmount;
+            }
+            return total;
+        }
         private void LoadQRCodeImage(string imagePath)
         {
             if (File.Exists(imagePath))
@@ -928,6 +929,7 @@ namespace CafeMenu
                 MessageBox.Show("Файл QR-кода не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void ssell_Click(object sender, EventArgs e)
         {
