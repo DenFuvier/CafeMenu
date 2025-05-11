@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using CafeMenu.General;
+using System.Linq;
 
 namespace CafeMenu
 {
@@ -28,6 +30,17 @@ namespace CafeMenu
 
             isInitializing = false;
         }
+        public static int GetDiscountPercent()
+        {
+            if (Application.OpenForms["Start_Form"] is Start_Form form && form.SellB.SelectedItem != null)
+            {
+                string text = form.SellB.SelectedItem.ToString().Replace("%", "");
+                if (int.TryParse(text, out int percent))
+                    return percent;
+            }
+            return 0;
+        }
+
         private void DiscountComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CalculateTotal();
@@ -934,6 +947,74 @@ namespace CafeMenu
         private void ssell_Click(object sender, EventArgs e)
         {
             CalculateTotal();
+            if (PayMoment.SelectedItem == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите метод оплаты!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Останавливаем дальнейшее выполнение, пока не будет выбран метод
+            }
+            if (MessageBox.Show("Оплата прошла успешно?", "Подтверждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                string paymentMethod = PayMoment.SelectedItem?.ToString();
+                string tableNumber = Prompt.ShowDialog("Введите номер столика:", "Столик");
+
+                var orderedItems = GetOrderedItems();
+
+                if (orderedItems.Count == 0)
+                {
+                    MessageBox.Show("Вы не выбрали ни одного блюда!");
+                    return;
+                }
+                int discountPercent = GetDiscountPercent();
+                ReceiptGenerator.GenerateClientReceipt(orderedItems, paymentMethod, tableNumber, discountPercent);
+
+                var kitchenItems = orderedItems.Select(i => (i.Name, i.Quantity)).ToList();
+                KitchenOrderGenerator.GenerateKitchenOrder(kitchenItems, tableNumber);
+                MessageBox.Show("Чеки успешно созданы на рабочем столе!");
+            }
+
         }
+        private List<(string Name, int Quantity, decimal Price)> GetOrderedItems()
+        {
+            var items = new List<(string, int, decimal)>();
+
+            void AddIfChecked(CheckBox checkBox, TextBox quantityBox, string productName)
+            {
+                if (checkBox.Checked && int.TryParse(quantityBox.Text, out int qty) && qty > 0)
+                {
+                    decimal price = GetPriceFromDatabase(productName);
+                    items.Add((productName, qty, price));
+                }
+            }
+
+            AddIfChecked(R1, H1, "Салат \"Гомер\"");
+            AddIfChecked(R2, H2, "Суп \"Римская охота\"");
+            AddIfChecked(R3, H3, "Куриные рулетики с сыром");
+            AddIfChecked(R4, H4, "Салат \"Виноградная гроздь\" с курицей");
+            AddIfChecked(R5, H5, "Дукка по-египетски");
+            AddIfChecked(R6, H6, "Паста с соусом песто и курицей");
+            AddIfChecked(R7, H7, "Фисташковый стейк с грибным соусом");
+            AddIfChecked(R8, H8, "Лосось в медово-горчичном соусе");
+            AddIfChecked(R9, H9, "Овощное рагу с пряными травами");
+            AddIfChecked(R10, H10, "Говядина по-азиатски с рисом");
+
+            AddIfChecked(R11, H11, "Чипсы из батата");
+            AddIfChecked(R12, H12, "Фисташковые гренки с сырным соусом");
+            AddIfChecked(R13, H13, "Мини-лепёшки с хумусом");
+            AddIfChecked(R14, H14, "Куриные наггетсы с ореховой панировкой");
+
+            AddIfChecked(R15, H15, "Фисташковый латте");
+            AddIfChecked(R16, H16, "Малиновый лимонад");
+            AddIfChecked(R17, H17, "Облепиховый чай с мёдом");
+            AddIfChecked(R18, H18, "Какао с маршмеллоу");
+
+            AddIfChecked(R19, H19, "Шоколадный мусс с фисташками");
+            AddIfChecked(R20, H20, "Фисташковый чизкейк");
+            AddIfChecked(R21, H21, "Ягодный торт");
+            AddIfChecked(R22, H22, "Эклеры с ванильным кремом");
+            AddIfChecked(R23, H23, "Брауни с карамелью");
+
+            return items;
+        }
+
     }
 }
