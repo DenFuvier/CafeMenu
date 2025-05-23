@@ -98,6 +98,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.SELL = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -901,12 +902,20 @@
             // panel7
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel7.Controls.Add(this.panel9);
             this.panel7.Controls.Add(this.SELL);
             this.panel7.Location = new System.Drawing.Point(6, 7);
             this.panel7.Margin = new System.Windows.Forms.Padding(2);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(1126, 123);
             this.panel7.TabIndex = 13;
+            // 
+            // panel9
+            // 
+            this.panel9.Location = new System.Drawing.Point(4, 3);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(159, 28);
+            this.panel9.TabIndex = 1;
             // 
             // Start_Form
             // 
@@ -925,6 +934,7 @@
             this.Name = "Start_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Меню";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Start_Form_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -1014,6 +1024,7 @@
         private System.Windows.Forms.TextBox H4;
         private System.Windows.Forms.ComboBox SellB;
         private System.Windows.Forms.PictureBox pictureBoxQRCode;
+        private System.Windows.Forms.Panel panel9;
     }
 }
 

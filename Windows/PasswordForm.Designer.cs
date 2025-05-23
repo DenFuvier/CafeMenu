@@ -71,7 +71,7 @@
             this.Controls.Add(this.btnOk);
             this.Name = "PasswordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "PasswordForm";
+            this.Text = "Проверка";
             this.ResumeLayout(false);
             this.PerformLayout();
 

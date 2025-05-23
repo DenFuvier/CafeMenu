@@ -1,11 +1,12 @@
-﻿using MySql.Data.MySqlClient;
+﻿using CafeMenu.General;
+using CafeMenu.Windows;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
-using CafeMenu.General;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace CafeMenu
 {
@@ -23,6 +24,7 @@ namespace CafeMenu
             SellB.SelectedIndex = 0;
             SellB.SelectedIndexChanged += SellB_SelectedIndexChanged;
             H24.ReadOnly = true;
+            panel9.MouseEnter += panel9_MouseEnter;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -40,7 +42,11 @@ namespace CafeMenu
             }
             return 0;
         }
-
+        private void panel9_MouseEnter(object sender, EventArgs e)
+        {
+            ChangePrice ddd = new ChangePrice();
+            ddd.Show();
+        }
         private void DiscountComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CalculateTotal();
@@ -614,7 +620,7 @@ namespace CafeMenu
             H24.Text = "0";
 
         }
-        private bool isPasswordCheckInProgress = false;
+      ///  private bool isPasswordCheckInProgress = false;
         private void SellB_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (isInitializing) return; 
@@ -1016,5 +1022,9 @@ namespace CafeMenu
             return items;
         }
 
+        private void Start_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
