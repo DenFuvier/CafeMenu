@@ -136,6 +136,12 @@
     <Compile Include="Windows\ChangePrice.Designer.cs">
       <DependentUpon>ChangePrice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ChangeSQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\ChangeSQL.Designer.cs">
+      <DependentUpon>ChangeSQL.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\MainForrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,14 +164,11 @@
     <Compile Include="Windows\SkinChanger.Designer.cs">
       <DependentUpon>SkinChanger.cs</DependentUpon>
     </Compile>
-    <Compile Include="Windows\TableSelectorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\TableSelectorForm.Designer.cs">
-      <DependentUpon>TableSelectorForm.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Windows\ChangePrice.resx">
       <DependentUpon>ChangePrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\ChangeSQL.resx">
+      <DependentUpon>ChangeSQL.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\MainForrm.resx">
       <DependentUpon>MainForrm.cs</DependentUpon>
@@ -184,9 +187,6 @@
     </Compile>
     <EmbeddedResource Include="Windows\SkinChanger.resx">
       <DependentUpon>SkinChanger.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\TableSelectorForm.resx">
-      <DependentUpon>TableSelectorForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Others\packages.config" />

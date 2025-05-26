@@ -98,7 +98,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.SELL = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.измнеитьЦенуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -107,6 +110,7 @@
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // R1
@@ -902,20 +906,47 @@
             // panel7
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel7.Controls.Add(this.panel9);
             this.panel7.Controls.Add(this.SELL);
+            this.panel7.Controls.Add(this.menuStrip1);
             this.panel7.Location = new System.Drawing.Point(6, 7);
             this.panel7.Margin = new System.Windows.Forms.Padding(2);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1126, 123);
+            this.panel7.Size = new System.Drawing.Size(1170, 123);
             this.panel7.TabIndex = 13;
             // 
-            // panel9
+            // menuStrip1
             // 
-            this.panel9.Location = new System.Drawing.Point(4, 3);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(159, 28);
-            this.panel9.TabIndex = 1;
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.настройкиToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1166, 24);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // настройкиToolStripMenuItem
+            // 
+            this.настройкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.измнеитьЦенуToolStripMenuItem,
+            this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem});
+            this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.настройкиToolStripMenuItem.Text = "Настройки";
+            // 
+            // измнеитьЦенуToolStripMenuItem
+            // 
+            this.измнеитьЦенуToolStripMenuItem.Name = "измнеитьЦенуToolStripMenuItem";
+            this.измнеитьЦенуToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+            this.измнеитьЦенуToolStripMenuItem.Text = "Изменить цену";
+            this.измнеитьЦенуToolStripMenuItem.Click += new System.EventHandler(this.измнеитьЦенуToolStripMenuItem_Click);
+            // 
+            // ИзменитьпараметрыSQLсоединенияToolStripMenuItem
+            // 
+            this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem.Name = "ИзменитьпараметрыSQLсоединенияToolStripMenuItem";
+            this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+            this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem.Text = "Изменить параметры SQL соединения";
+            this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem.Click += new System.EventHandler(this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem_Click);
             // 
             // Start_Form
             // 
@@ -930,6 +961,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel7);
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Start_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -949,6 +981,8 @@
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1024,7 +1058,10 @@
         private System.Windows.Forms.TextBox H4;
         private System.Windows.Forms.ComboBox SellB;
         private System.Windows.Forms.PictureBox pictureBoxQRCode;
-        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem измнеитьЦенуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ИзменитьпараметрыSQLсоединенияToolStripMenuItem;
     }
 }
 

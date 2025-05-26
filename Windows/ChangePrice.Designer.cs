@@ -48,6 +48,7 @@
             this.dessertsVIEW.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dessertsVIEW.Location = new System.Drawing.Point(8, 418);
             this.dessertsVIEW.Name = "dessertsVIEW";
+            this.dessertsVIEW.ReadOnly = true;
             this.dessertsVIEW.Size = new System.Drawing.Size(428, 91);
             this.dessertsVIEW.TabIndex = 0;
             // 
@@ -56,6 +57,7 @@
             this.drinksVIEW.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.drinksVIEW.Location = new System.Drawing.Point(7, 286);
             this.drinksVIEW.Name = "drinksVIEW";
+            this.drinksVIEW.ReadOnly = true;
             this.drinksVIEW.Size = new System.Drawing.Size(428, 102);
             this.drinksVIEW.TabIndex = 1;
             // 
@@ -64,6 +66,7 @@
             this.maindishesVIEW.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.maindishesVIEW.Location = new System.Drawing.Point(7, 161);
             this.maindishesVIEW.Name = "maindishesVIEW";
+            this.maindishesVIEW.ReadOnly = true;
             this.maindishesVIEW.Size = new System.Drawing.Size(428, 95);
             this.maindishesVIEW.TabIndex = 2;
             // 
@@ -72,6 +75,7 @@
             this.snacksVIEW.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.snacksVIEW.Location = new System.Drawing.Point(7, 36);
             this.snacksVIEW.Name = "snacksVIEW";
+            this.snacksVIEW.ReadOnly = true;
             this.snacksVIEW.Size = new System.Drawing.Size(428, 95);
             this.snacksVIEW.TabIndex = 3;
             this.snacksVIEW.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.snacksVIEW_CellContentClick);

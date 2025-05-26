@@ -24,7 +24,6 @@ namespace CafeMenu
             SellB.SelectedIndex = 0;
             SellB.SelectedIndexChanged += SellB_SelectedIndexChanged;
             H24.ReadOnly = true;
-            panel9.MouseEnter += panel9_MouseEnter;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -41,11 +40,6 @@ namespace CafeMenu
                     return percent;
             }
             return 0;
-        }
-        private void panel9_MouseEnter(object sender, EventArgs e)
-        {
-            ChangePrice ddd = new ChangePrice();
-            ddd.Show();
         }
         private void DiscountComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1025,6 +1019,18 @@ namespace CafeMenu
         private void Start_Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void измнеитьЦенуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangePrice changePrice = new ChangePrice();
+            changePrice.Show();
+        }
+
+        private void ИзменитьпараметрыSQLсоединенияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeSQL changeSQL = new ChangeSQL(); 
+            changeSQL.Show();
         }
     }
 }
