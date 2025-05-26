@@ -130,6 +130,12 @@
     <Compile Include="General\Prompt.cs" />
     <Compile Include="General\ReceiptGenerator.cs" />
     <Compile Include="General\Snack.cs" />
+    <Compile Include="Windows\ChangePasswd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\ChangePasswd.Designer.cs">
+      <DependentUpon>ChangePasswd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ChangePrice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,9 @@
     <Compile Include="Windows\SkinChanger.Designer.cs">
       <DependentUpon>SkinChanger.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Windows\ChangePasswd.resx">
+      <DependentUpon>ChangePasswd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Windows\ChangePrice.resx">
       <DependentUpon>ChangePrice.cs</DependentUpon>
     </EmbeddedResource>

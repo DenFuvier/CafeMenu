@@ -36,7 +36,6 @@ namespace CafeMenu.Windows
             this.MinimizeBox = false;
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            snacksVIEW.TabStop = false;
             drinksVIEW.TabStop = false;
             dessertsVIEW.TabStop = false;
             maindishesVIEW.TabStop = false;

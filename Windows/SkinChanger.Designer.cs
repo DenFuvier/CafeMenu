@@ -103,7 +103,7 @@
             this.Controls.Add(this.ProductNameBox);
             this.Name = "SkinChanger";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SkinChanger";
+            this.Text = "Изменение цены";
             this.ResumeLayout(false);
             this.PerformLayout();
 

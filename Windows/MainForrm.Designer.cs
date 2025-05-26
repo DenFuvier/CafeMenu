@@ -102,6 +102,7 @@
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.измнеитьЦенуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.изменитьПарольДляСкидкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -929,7 +930,8 @@
             // 
             this.настройкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.измнеитьЦенуToolStripMenuItem,
-            this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem});
+            this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem,
+            this.изменитьПарольДляСкидкиToolStripMenuItem});
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
             this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.настройкиToolStripMenuItem.Text = "Настройки";
@@ -947,6 +949,13 @@
             this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
             this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem.Text = "Изменить параметры SQL соединения";
             this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem.Click += new System.EventHandler(this.ИзменитьпараметрыSQLсоединенияToolStripMenuItem_Click);
+            // 
+            // изменитьПарольДляСкидкиToolStripMenuItem
+            // 
+            this.изменитьПарольДляСкидкиToolStripMenuItem.Name = "изменитьПарольДляСкидкиToolStripMenuItem";
+            this.изменитьПарольДляСкидкиToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+            this.изменитьПарольДляСкидкиToolStripMenuItem.Text = "Изменить пароль для скидки";
+            this.изменитьПарольДляСкидкиToolStripMenuItem.Click += new System.EventHandler(this.изменитьПарольДляСкидкиToolStripMenuItem_Click);
             // 
             // Start_Form
             // 
@@ -1062,6 +1071,7 @@
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem измнеитьЦенуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ИзменитьпараметрыSQLсоединенияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem изменитьПарольДляСкидкиToolStripMenuItem;
     }
 }
 

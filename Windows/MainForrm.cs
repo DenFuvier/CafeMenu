@@ -1032,5 +1032,11 @@ namespace CafeMenu
             ChangeSQL changeSQL = new ChangeSQL(); 
             changeSQL.Show();
         }
+
+        private void изменитьПарольДляСкидкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangePasswd changePasswd = new ChangePasswd(); 
+            changePasswd.Show();
+        }
     }
 }

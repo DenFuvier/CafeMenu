@@ -146,7 +146,7 @@
             this.Controls.Add(this.button1);
             this.Name = "ChangeSQL";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ChangeSQL";
+            this.Text = "Изменить параметры подключения";
             this.Load += new System.EventHandler(this.ChangeSQL_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

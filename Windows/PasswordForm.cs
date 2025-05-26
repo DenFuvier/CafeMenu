@@ -1,4 +1,5 @@
 ﻿using CafeMenu;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace CafeMenu
     public partial class PasswordForm : Form
     {
         public bool IsPasswordCorrect { get; private set; } = false;
+
         public PasswordForm()
         {
             InitializeComponent();
@@ -21,16 +23,36 @@ namespace CafeMenu
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            string correctPassword = "1234";
-            if (txtPassword.Text == correctPassword)
+            string inputPassword = txtPassword.Text;
+            string cs = new SqlConnector().GetConnect();
+
+            try
             {
-                IsPasswordCorrect = true;
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                using (var con = new MySqlConnection(cs))
+                {
+                    con.Open();
+                    string query = "SELECT Pass FROM Pass WHERE Id = 1";
+
+                    using (var cmd = new MySqlCommand(query, con))
+                    {
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null && inputPassword == result.ToString())
+                        {
+                            IsPasswordCorrect = true;
+                            this.DialogResult = DialogResult.OK;
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Неверный пароль!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Неверный пароль!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка подключения: " + ex.Message);
             }
         }
 
