@@ -62,21 +62,21 @@
             // 
             // LoginBox
             // 
-            this.LoginBox.Location = new System.Drawing.Point(120, 21);
+            this.LoginBox.Location = new System.Drawing.Point(120, 67);
             this.LoginBox.Name = "LoginBox";
             this.LoginBox.Size = new System.Drawing.Size(169, 20);
             this.LoginBox.TabIndex = 2;
             // 
             // PasswdBox
             // 
-            this.PasswdBox.Location = new System.Drawing.Point(120, 62);
+            this.PasswdBox.Location = new System.Drawing.Point(120, 104);
             this.PasswdBox.Name = "PasswdBox";
             this.PasswdBox.Size = new System.Drawing.Size(169, 20);
             this.PasswdBox.TabIndex = 3;
             // 
             // ServerBox
             // 
-            this.ServerBox.Location = new System.Drawing.Point(120, 104);
+            this.ServerBox.Location = new System.Drawing.Point(120, 21);
             this.ServerBox.Name = "ServerBox";
             this.ServerBox.Size = new System.Drawing.Size(169, 20);
             this.ServerBox.TabIndex = 4;
