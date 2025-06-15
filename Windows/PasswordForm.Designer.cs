@@ -57,7 +57,7 @@
             this.Exit.Name = "Exit";
             this.Exit.Size = new System.Drawing.Size(75, 23);
             this.Exit.TabIndex = 2;
-            this.Exit.Text = "Выход";
+            this.Exit.Text = "Закрыть";
             this.Exit.UseVisualStyleBackColor = true;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
@@ -65,13 +65,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(232, 111);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(239)))), ((int)(((byte)(231)))));
+            this.ClientSize = new System.Drawing.Size(217, 105);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.btnOk);
             this.Name = "PasswordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Проверка";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PasswordForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

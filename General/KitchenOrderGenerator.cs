@@ -8,14 +8,21 @@ namespace CafeMenu.General
 {
     public class KitchenOrderGenerator
     {
-        public static void GenerateKitchenOrder(List<(string Name, int Quantity)> items, string tableNumber)
+        public static void GenerateKitchenOrder(List<(string Name, int Quantity)> items, string tableNumber, int orderNumber)
         {
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string fileName = $"Кухня_{DateTime.Now:yyyyMMdd_HHmmss}.docx";
+
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm");
+            string fileName = $"Кухонный_чек_№{orderNumber}_{timestamp}.docx";
             string path = Path.Combine(desktop, fileName);
 
             var doc = DocX.Create(path);
-            doc.InsertParagraph("Заказ на кухню").FontSize(16).Bold().Alignment = Alignment.center;
+
+            doc.InsertParagraph($"Заказ на кухню — №{orderNumber}")
+                .FontSize(16)
+                .Bold()
+                .Alignment = Alignment.center;
+
             doc.InsertParagraph($"Столик: {tableNumber}");
             doc.InsertParagraph($"Дата: {DateTime.Now:dd.MM.yyyy HH:mm:ss}");
 
@@ -33,6 +40,5 @@ namespace CafeMenu.General
             doc.InsertTable(table);
             doc.Save();
         }
-
     }
 }

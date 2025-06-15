@@ -127,6 +127,8 @@
     <Compile Include="General\Desserts.cs" />
     <Compile Include="General\Drink.cs" />
     <Compile Include="General\KitchenOrderGenerator.cs" />
+    <Compile Include="General\Order.cs" />
+    <Compile Include="General\OrderService.cs" />
     <Compile Include="General\Prompt.cs" />
     <Compile Include="General\ReceiptGenerator.cs" />
     <Compile Include="General\Snack.cs" />
@@ -147,6 +149,18 @@
     </Compile>
     <Compile Include="Windows\ChangeSQL.Designer.cs">
       <DependentUpon>ChangeSQL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FormContact.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\FormContact.Designer.cs">
+      <DependentUpon>FormContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\HelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\HelpForm.Designer.cs">
+      <DependentUpon>HelpForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainForrm.cs">
       <SubType>Form</SubType>
@@ -179,6 +193,12 @@
     <EmbeddedResource Include="Windows\ChangeSQL.resx">
       <DependentUpon>ChangeSQL.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Windows\FormContact.resx">
+      <DependentUpon>FormContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\HelpForm.resx">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Windows\MainForrm.resx">
       <DependentUpon>MainForrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -198,7 +218,6 @@
       <DependentUpon>SkinChanger.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="Others\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

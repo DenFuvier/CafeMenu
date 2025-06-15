@@ -33,6 +33,14 @@ namespace CafeMenu.Windows
             drinksVIEW.CellMouseLeave += DrinksVIEW_CellMouseLeave;
             dessertsVIEW.CellMouseLeave += DessertsVIEW_CellMouseLeave;
             maindishesVIEW.CellMouseLeave += MaindishesVIEW_CellMouseLeave;
+            snacksVIEW.DataError += DataGridView_DataError;
+            drinksVIEW.DataError += DataGridView_DataError;
+            dessertsVIEW.DataError += DataGridView_DataError;
+            maindishesVIEW.DataError += DataGridView_DataError;
+            Exit.MouseEnter += Exit_MouseEnter;
+            Exit.MouseLeave += Exit_MouseLeave;
+            Exit.BackColor = ColorTranslator.FromHtml("#f0efe7");
+            ApplyAllGridViews();
             this.MinimizeBox = false;
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -54,11 +62,60 @@ namespace CafeMenu.Windows
                 }));
             };
         }
+
+        private void Exit_MouseLeave(object sender, EventArgs e)
+        {
+           Exit.BackColor = ColorTranslator.FromHtml("#f0efe7");
+        }
+
+        private void Exit_MouseEnter(object sender, EventArgs e)
+        {
+            Exit.BackColor = ColorTranslator.FromHtml("#d4c8b5");
+        }
+
+        private void DataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+               e.Cancel = true;
+        }
+
+        private void ApplyAllGridViews()
+        {
+            ApplyDataGridViewStyle(snacksVIEW);
+            ApplyDataGridViewStyle(maindishesVIEW);
+            ApplyDataGridViewStyle(drinksVIEW);
+            ApplyDataGridViewStyle(dessertsVIEW);
+        }
+
+        private void ApplyDataGridViewStyle(DataGridView dgv)
+        {
+            Color bg = ColorTranslator.FromHtml("#f0efe7");
+            Color headerBg = ColorTranslator.FromHtml("#d8ecd3");
+            Color cellText = ColorTranslator.FromHtml("#4c3d2d");
+            Color selectBg = ColorTranslator.FromHtml("#cde8c6");
+            Color selectText = ColorTranslator.FromHtml("#2c2c2c");
+
+            dgv.BackgroundColor = bg;
+            dgv.ForeColor = cellText;
+            dgv.GridColor = headerBg;
+
+            dgv.DefaultCellStyle.BackColor = Color.White;
+            dgv.DefaultCellStyle.ForeColor = cellText;
+            dgv.DefaultCellStyle.SelectionBackColor = selectBg;
+            dgv.DefaultCellStyle.SelectionForeColor = selectText;
+
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = headerBg;
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = cellText;
+
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.BorderStyle = BorderStyle.None;
+            dgv.RowHeadersVisible = false;
+        }
+
         private void MaindishesVIEW_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                maindishesVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White; // Reset to default color
+                maindishesVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White;
             }
         }
 
@@ -66,7 +123,7 @@ namespace CafeMenu.Windows
         {
            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                dessertsVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White; // Reset to default color
+                dessertsVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White;
             }
         }
 
@@ -74,7 +131,7 @@ namespace CafeMenu.Windows
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                drinksVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White; // Reset to default color
+                drinksVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White;
             }
         }
 
@@ -82,7 +139,7 @@ namespace CafeMenu.Windows
         {
            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                snacksVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White; // Reset to default color
+                snacksVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White;
             }
         }
 
@@ -90,7 +147,7 @@ namespace CafeMenu.Windows
         {
             if(e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                maindishesVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = ColorTranslator.FromHtml("#FFB6C1"); // Light Pink color
+                maindishesVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = ColorTranslator.FromHtml("#FFB6C1");
             }
             
         }
@@ -99,7 +156,7 @@ namespace CafeMenu.Windows
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             { 
-                dessertsVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = ColorTranslator.FromHtml("#FFB6C1"); // Light Pink color
+                dessertsVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = ColorTranslator.FromHtml("#FFB6C1");
             }
         }
 
@@ -107,7 +164,7 @@ namespace CafeMenu.Windows
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                drinksVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = ColorTranslator.FromHtml("#FFB6C1"); // Light Pink color
+                drinksVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = ColorTranslator.FromHtml("#FFB6C1");
             }
         }
 
@@ -115,7 +172,7 @@ namespace CafeMenu.Windows
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                snacksVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = ColorTranslator.FromHtml("#FFB6C1"); // Light Pink color
+                snacksVIEW.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = ColorTranslator.FromHtml("#FFB6C1");
             }
         }
 
@@ -126,9 +183,8 @@ namespace CafeMenu.Windows
             int ID = X.Id;
             string ProductName = X.ProductName;
             decimal Price = X.Price;
-            SkinChanger changerForm = new SkinChanger(ID, ProductName, Price, "maindishes");
-            changerForm.Show();
-            this.Hide();    
+            SkinChanger changerForm = new SkinChanger(ID, ProductName, Price, "maindishes", this);
+            changerForm.ShowDialog();
         }
 
         private void DessertsVIEW_DoubleClick(object sender, EventArgs e)
@@ -138,9 +194,9 @@ namespace CafeMenu.Windows
             int ID = X.Id;
             string ProductName = X.ProductName;
             decimal Price = X.Price;
-            SkinChanger changerForm = new SkinChanger(ID, ProductName, Price, "desserts");
-            changerForm.Show();
-            this.Hide();
+
+            SkinChanger changerForm = new SkinChanger(ID, ProductName, Price, "desserts", this);
+            changerForm.ShowDialog();
         }
 
         private void DrinksVIEW_DoubleClick(object sender, EventArgs e)
@@ -150,9 +206,8 @@ namespace CafeMenu.Windows
             int ID = X.Id;
             string ProductName = X.ProductName;
             decimal Price = X.Price;
-            SkinChanger changerForm = new SkinChanger(ID, ProductName, Price, "drinks");
-            changerForm.Show();
-            this.Hide();
+            SkinChanger changerForm = new SkinChanger(ID, ProductName, Price, "drinks", this);
+            changerForm.ShowDialog();
         }
 
         private void SnacksVIEW_DoubleClick(object sender, EventArgs e)
@@ -162,9 +217,19 @@ namespace CafeMenu.Windows
             int ID = X.Id;
             string ProductName = X.ProductName;
             decimal Price = X.Price;
-            SkinChanger changerForm = new SkinChanger(ID, ProductName, Price, "snacks");
-            changerForm.Show();
-            this.Hide();
+            SkinChanger changerForm = new SkinChanger(ID, ProductName, Price, "snacks", this);
+            changerForm.ShowDialog();
+        }
+        public void ReloadAllTables()
+        {
+            snakss.Clear();
+            drinkss.Clear();
+            desserts.Clear();
+            maindishes.Clear();
+            LoadsnmaksVIEW();
+            LoadDrinkView();
+            LoadDessertsView();
+            LoadMainDishes();
         }
 
         private void LoadMainDishes()
@@ -190,8 +255,9 @@ namespace CafeMenu.Windows
                         Price = Price
                     };
                     maindishes.Add(Maimmmm);
-                    maindishesVIEW.DataSource = maindishes;
+                    maindishesVIEW.DataSource = null;
                 }
+                maindishesVIEW.DataSource = maindishes;
                 con.Close();
 
             }
@@ -223,8 +289,9 @@ namespace CafeMenu.Windows
                         Price = Price
                     };
                     desserts.Add(dessertss);
-                    dessertsVIEW.DataSource = desserts;
-                }
+                    dessertsVIEW.DataSource = null;
+                }           
+                dessertsVIEW.DataSource = desserts;
                 con.Close();
 
             }
@@ -256,8 +323,9 @@ namespace CafeMenu.Windows
                         Price = Price
                     };
                     drinkss.Add(Drosel);
-                    drinksVIEW.DataSource = drinkss;
+                    drinksVIEW.DataSource = null;
                 }
+                drinksVIEW.DataSource = drinkss;
                 con.Close();
 
             }
@@ -291,8 +359,9 @@ namespace CafeMenu.Windows
                     snakss.Add(SNikers);
                     snacksVIEW.CurrentCell = null;
                     snacksVIEW.ClearSelection();
-                    snacksVIEW.DataSource = snakss;
+                    snacksVIEW.DataSource = null;
                 }
+                snacksVIEW.DataSource = snakss;
                 con.Close();
 
             }
@@ -332,6 +401,15 @@ namespace CafeMenu.Windows
             maindishesVIEW.DefaultCellStyle.SelectionBackColor = maindishesVIEW.DefaultCellStyle.BackColor;
             maindishesVIEW.DefaultCellStyle.SelectionForeColor = maindishesVIEW.DefaultCellStyle.ForeColor;
             maindishesVIEW.EnableHeadersVisualStyles = false;
+
+        }
+
+        private void ChangePrice_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (this.DialogResult != DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
         }
     }
 }

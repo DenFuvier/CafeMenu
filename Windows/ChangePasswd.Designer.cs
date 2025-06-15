@@ -53,12 +53,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(239)))), ((int)(((byte)(231)))));
             this.ClientSize = new System.Drawing.Size(317, 53);
             this.Controls.Add(this.PassworfBox);
             this.Controls.Add(this.Save);
             this.Name = "ChangePasswd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Изменение пароля";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChangePasswd_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

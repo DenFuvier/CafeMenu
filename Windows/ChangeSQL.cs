@@ -1,5 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office.PowerPoint.Y2021.M06.Main;
-using System;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -12,15 +12,52 @@ namespace CafeMenu.Windows
             InitializeComponent();
             this.MinimizeBox = false;
             this.MaximizeBox = false;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;           
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            StyleAllTextBoxes(this);
+            ExitButton.MouseEnter += ExitButton_MouseEnter;
+            ExitButton.MouseLeave += ExitButton_MouseLeave;
+            ExitButton.BackColor = ColorTranslator.FromHtml("#f0efe7");
+            SaveButton.BackColor = ColorTranslator.FromHtml("#f0efe7");
+            SaveButton.MouseEnter += SaveButton_MouseEnter;
+            SaveButton.MouseLeave += SaveButton_MouseLeave;
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
+        private void SaveButton_MouseLeave(object sender, EventArgs e)
         {
-           
-
+            SaveButton.BackColor = ColorTranslator.FromHtml("#f0efe7");
         }
 
+        private void SaveButton_MouseEnter(object sender, EventArgs e)
+        {
+            SaveButton.BackColor = ColorTranslator.FromHtml("#d4c8b5");
+        }
+
+        private void ExitButton_MouseLeave(object sender, EventArgs e)
+        {
+            ExitButton.BackColor = ColorTranslator.FromHtml("#f0efe7");
+        }
+
+        private void ExitButton_MouseEnter(object sender, EventArgs e)
+        {
+            ExitButton.BackColor = ColorTranslator.FromHtml("#d4c8b5");
+        }
+        private void StyleAllTextBoxes(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is TextBox tb)
+                    StyleTextBox(tb);
+
+                if (ctrl.HasChildren)
+                    StyleAllTextBoxes(ctrl);
+            }
+        }
+        private void StyleTextBox(TextBox tb)
+        {
+            tb.BackColor = Color.White;
+            tb.ForeColor = ColorTranslator.FromHtml("#4c3d2d");
+            tb.BorderStyle = BorderStyle.FixedSingle;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             StreamWriter streamWriter = new StreamWriter("config.txt");
@@ -45,6 +82,14 @@ namespace CafeMenu.Windows
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void ChangeSQL_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (this.DialogResult != DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
         }
     }
 }

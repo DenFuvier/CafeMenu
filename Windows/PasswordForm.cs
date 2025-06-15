@@ -1,13 +1,6 @@
-﻿using CafeMenu;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CafeMenu
@@ -19,8 +12,26 @@ namespace CafeMenu
         public PasswordForm()
         {
             InitializeComponent();
+            StyleAllTextBoxes(this);
+           this.FormClosed += PasswordForm_FormClosed;
         }
+        private void StyleAllTextBoxes(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is TextBox tb)
+                    StyleTextBox(tb);
 
+                if (ctrl.HasChildren)
+                    StyleAllTextBoxes(ctrl);
+            }
+        }
+        private void StyleTextBox(TextBox tb)
+        {
+            tb.BackColor = Color.White;
+            tb.ForeColor = ColorTranslator.FromHtml("#4c3d2d");
+            tb.BorderStyle = BorderStyle.FixedSingle;
+        }
         private void btnOk_Click(object sender, EventArgs e)
         {
             string inputPassword = txtPassword.Text;
@@ -58,7 +69,15 @@ namespace CafeMenu
 
         private void Exit_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+        private void PasswordForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (this.DialogResult != DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
         }
     }
 }

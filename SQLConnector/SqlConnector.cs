@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace CafeMenu
 {
@@ -20,9 +15,9 @@ namespace CafeMenu
 
             if (configLines.Length >= 4)
             {
-                userid = configLines[0];
-                password = configLines[1];
-                server = configLines[2];
+                server = configLines[0];
+                userid = configLines[1];
+                password = configLines[2];
                 database = configLines[3];
             }
             else

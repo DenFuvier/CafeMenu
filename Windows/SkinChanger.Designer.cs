@@ -40,6 +40,7 @@
             // 
             this.ProductNameBox.Location = new System.Drawing.Point(187, 9);
             this.ProductNameBox.Name = "ProductNameBox";
+            this.ProductNameBox.ReadOnly = true;
             this.ProductNameBox.Size = new System.Drawing.Size(153, 20);
             this.ProductNameBox.TabIndex = 1;
             // 
@@ -52,7 +53,7 @@
             // 
             // Save
             // 
-            this.Save.Location = new System.Drawing.Point(25, 85);
+            this.Save.Location = new System.Drawing.Point(256, 85);
             this.Save.Name = "Save";
             this.Save.Size = new System.Drawing.Size(75, 23);
             this.Save.TabIndex = 3;
@@ -62,11 +63,11 @@
             // 
             // Exit
             // 
-            this.Exit.Location = new System.Drawing.Point(106, 85);
+            this.Exit.Location = new System.Drawing.Point(12, 85);
             this.Exit.Name = "Exit";
             this.Exit.Size = new System.Drawing.Size(75, 23);
             this.Exit.TabIndex = 4;
-            this.Exit.Text = "Выход";
+            this.Exit.Text = "Закрыть";
             this.Exit.UseVisualStyleBackColor = true;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
@@ -94,6 +95,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(239)))), ((int)(((byte)(231)))));
             this.ClientSize = new System.Drawing.Size(343, 110);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -104,6 +106,7 @@
             this.Name = "SkinChanger";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Изменение цены";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SkinChanger_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

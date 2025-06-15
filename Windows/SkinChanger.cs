@@ -1,13 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
 namespace CafeMenu.Windows
@@ -20,7 +13,8 @@ namespace CafeMenu.Windows
         private string _productName;
         private decimal _price;
         private string _tableName;
-        public SkinChanger(int ID,string ProductName,decimal Price, string TableName)
+        private ChangePrice _parent;
+        public SkinChanger(int ID,string ProductName,decimal Price, string TableName,ChangePrice parent)
         {
             InitializeComponent();
 
@@ -28,9 +22,27 @@ namespace CafeMenu.Windows
             _productName = ProductName;
             _price = Price;
             _tableName = TableName;
-
+            StyleAllTextBoxes(this);
             ProductNameBox.Text = _productName;
             PriceBox.Text = _price.ToString();
+            _parent = parent;
+        }
+        private void StyleAllTextBoxes(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is TextBox tb)
+                    StyleTextBox(tb);
+
+                if (ctrl.HasChildren)
+                    StyleAllTextBoxes(ctrl);
+            }
+        }
+        private void StyleTextBox(TextBox tb)
+        {
+            tb.BackColor = Color.White;
+            tb.ForeColor = ColorTranslator.FromHtml("#4c3d2d");
+            tb.BorderStyle = BorderStyle.FixedSingle;
         }
 
         private void Save_Click(object sender, EventArgs e)
@@ -51,18 +63,31 @@ namespace CafeMenu.Windows
                     cmd.ExecuteNonQuery();
                 }
             }
+            if (Application.OpenForms["Start_Form"] is Start_Form form)
+            {
+                form.FillMainDishesTextBoxes();
+                form.FillSnacksTextBoxes();
+                form.FillDrinksTextBoxes();
+                form.FillDessertsTextBoxes();
+            }
 
             MessageBox.Show("Данные обновлены.");
+            _parent?.ReloadAllTables();
             this.Close();
-            ChangePrice changePrice = new ChangePrice();
-            changePrice.ShowDialog();
         }
 
         private void Exit_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            ChangePrice changePrice = new ChangePrice();  
-            changePrice.ShowDialog();
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void SkinChanger_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (this.DialogResult != DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿using CafeMenu.General;
+﻿using ArictSKOOLA.Windows;
+using CafeMenu.General;
 using CafeMenu.Windows;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace CafeMenu
     {
         SqlConnector SQL = new SqlConnector();
         private bool isInitializing = true;
-        private bool isPasswordChecked = false;
+        private int lastDiscountIndex = 0;
         public Start_Form()
         {
             InitializeComponent();
@@ -28,8 +30,78 @@ namespace CafeMenu
             this.MinimizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.Load += Start_Form_Load;
-
+            StyleAllTextBoxes(this);
+            StyleAllCheckBoxes(this);
             isInitializing = false;
+            ssell.MouseEnter += Ssell_MouseEnter;
+            ssell.MouseLeave += Ssell_MouseLeave;
+            ssell.BackColor = ColorTranslator.FromHtml("#f0efe7");
+            Reset.BackColor = ColorTranslator.FromHtml("#f0efe7");
+            Exit.BackColor = ColorTranslator.FromHtml("#f0efe7");
+            Reset.MouseEnter += Reset_MouseEnter;
+            Reset.MouseLeave += Reset_MouseLeave;
+            Exit.MouseEnter += Exit_MouseEnter;
+            Exit.MouseLeave += Exit_MouseLeave;
+        }
+        private void Exit_MouseLeave(object sender, EventArgs e)
+        {
+            Exit.BackColor = ColorTranslator.FromHtml("#f0efe7");
+        }
+        private void Exit_MouseEnter(object sender, EventArgs e)
+        {
+            Exit.BackColor = ColorTranslator.FromHtml("#d4c8b5");
+        }
+        private void Reset_MouseLeave(object sender, EventArgs e)
+        {
+            Reset.BackColor = ColorTranslator.FromHtml("#f0efe7");
+        }
+        private void Reset_MouseEnter(object sender, EventArgs e)
+        {
+            Reset.BackColor = ColorTranslator.FromHtml("#d4c8b5");
+        }
+        private void Ssell_MouseLeave(object sender, EventArgs e)
+        {
+            ssell.BackColor = ColorTranslator.FromHtml("#f0efe7");
+        }
+
+        private void Ssell_MouseEnter(object sender, EventArgs e)
+        {
+            ssell.BackColor = ColorTranslator.FromHtml("#d4c8b5");
+        }
+        private void StyleTextBox(TextBox tb)
+        {
+            tb.BackColor = Color.White;
+            tb.ForeColor = ColorTranslator.FromHtml("#4c3d2d");
+            tb.BorderStyle = BorderStyle.FixedSingle;
+        }
+        private void StyleAllTextBoxes(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is TextBox tb)
+                    StyleTextBox(tb);
+
+                if (ctrl.HasChildren)
+                    StyleAllTextBoxes(ctrl);
+            }
+        }
+        private void StyleCheckBox(CheckBox cb)
+        {
+            cb.BackColor = ColorTranslator.FromHtml("#f0efe7");
+            cb.ForeColor = ColorTranslator.FromHtml("#4c3d2d");
+            cb.FlatStyle = FlatStyle.Flat;
+            cb.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+            cb.Padding = new Padding(4, 0, 0, 0);
+        }
+        private void StyleAllCheckBoxes(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is CheckBox cb)
+                    StyleCheckBox(cb);
+                if (ctrl.HasChildren)
+                    StyleAllCheckBoxes(ctrl);
+            }
         }
         public static int GetDiscountPercent()
         {
@@ -45,14 +117,13 @@ namespace CafeMenu
         {
             CalculateTotal();
         }
-        private void Start_Form_Load(object sender, EventArgs e)
+        public void Start_Form_Load(object sender, EventArgs e)
         {
             FillMainDishesTextBoxes();
             FillSnacksTextBoxes();
             FillDrinksTextBoxes();
             FillDessertsTextBoxes();
-        }
-       
+        }       
         private void Exit_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
@@ -66,8 +137,6 @@ namespace CafeMenu
                 Application.Exit();
             }
         }
-
-
         public void CentreMethod()
         {
             H1.TextAlign = HorizontalAlignment.Center;
@@ -197,7 +266,6 @@ namespace CafeMenu
 
             }
         }
-
         private void R3_CheckedChanged(object sender, EventArgs e)
         {
             if (R3.Checked == true)
@@ -212,7 +280,6 @@ namespace CafeMenu
                 H3.Text = "0";
             }
         }
-
         private void R4_CheckedChanged(object sender, EventArgs e)
         {
             if (R4.Checked == true)
@@ -227,7 +294,6 @@ namespace CafeMenu
                 H4.Text = "0";
             }
         }
-
         private void R5_CheckedChanged(object sender, EventArgs e)
         {
             if (R5.Checked == true)
@@ -242,7 +308,6 @@ namespace CafeMenu
                 H5.Text = "0";
             }
         }
-
         private void R6_CheckedChanged(object sender, EventArgs e)
         {
             if (R6.Checked == true)
@@ -257,7 +322,6 @@ namespace CafeMenu
                 H6.Text = "0";
             }
         }
-
         private void R7_CheckedChanged(object sender, EventArgs e)
         {
             if (R7.Checked == true)
@@ -272,7 +336,6 @@ namespace CafeMenu
                 H7.Text = "0";
             }
         }
-
         private void R8_CheckedChanged(object sender, EventArgs e)
         {
             if (R8.Checked == true)
@@ -287,7 +350,6 @@ namespace CafeMenu
                 H8.Text = "0";
             }
         }
-
         private void R9_CheckedChanged(object sender, EventArgs e)
         {
             if (R9.Checked == true)
@@ -302,7 +364,6 @@ namespace CafeMenu
                 H9.Text = "0";
             }
         }
-
         private void R10_CheckedChanged(object sender, EventArgs e)
         {
             if (R10.Checked == true)
@@ -317,7 +378,6 @@ namespace CafeMenu
                 H10.Text = "0";
             }
         }
-
         private void R11_CheckedChanged(object sender, EventArgs e)
         {
             if (R11.Checked == true)
@@ -332,7 +392,6 @@ namespace CafeMenu
                 H11.Text = "0";
             }
         }
-
         private void R12_CheckedChanged(object sender, EventArgs e)
         {
             if (R12.Checked == true)
@@ -347,7 +406,6 @@ namespace CafeMenu
                 H12.Text = "0";
             }
         }
-
         private void R13_CheckedChanged(object sender, EventArgs e)
         {
             if (R13.Checked == true)
@@ -362,7 +420,6 @@ namespace CafeMenu
                 H13.Text = "0";
             }
         }
-
         private void R14_CheckedChanged(object sender, EventArgs e)
         {
             if (R14.Checked == true)
@@ -377,7 +434,6 @@ namespace CafeMenu
                 H14.Text = "0";
             }
         }
-
         private void R15_CheckedChanged(object sender, EventArgs e)
         {
             if (R15.Checked == true)
@@ -392,7 +448,6 @@ namespace CafeMenu
                 H15.Text = "0";
             }
         }
-
         private void R16_CheckedChanged(object sender, EventArgs e)
         {
             if (R16.Checked == true)
@@ -407,7 +462,6 @@ namespace CafeMenu
                 H16.Text = "0";
             }
         }
-
         private void R17_CheckedChanged(object sender, EventArgs e)
         {
             if (R17.Checked == true)
@@ -422,7 +476,6 @@ namespace CafeMenu
                 H17.Text = "0";
             }
         }
-
         private void R18_CheckedChanged(object sender, EventArgs e)
         {
             if (R18.Checked == true)
@@ -437,7 +490,6 @@ namespace CafeMenu
                 H18.Text = "0";
             }
         }
-
         private void R19_CheckedChanged(object sender, EventArgs e)
         {
             if (R19.Checked == true)
@@ -452,7 +504,6 @@ namespace CafeMenu
                 H19.Text = "0";
             }
         }
-
         private void R20_CheckedChanged(object sender, EventArgs e)
         {
             if (R20.Checked == true)
@@ -467,7 +518,6 @@ namespace CafeMenu
                 H20.Text = "0";
             }
         }
-
         private void R21_CheckedChanged(object sender, EventArgs e)
         {
             if (R21.Checked == true)
@@ -482,7 +532,6 @@ namespace CafeMenu
                 H21.Text = "0";
             }
         }
-
         private void R22_CheckedChanged(object sender, EventArgs e)
         {
             if (R22.Checked == true)
@@ -497,7 +546,6 @@ namespace CafeMenu
                 H22.Text = "0";
             }
         }
-
         private void R23_CheckedChanged(object sender, EventArgs e)
         {
             if (R23.Checked == true)
@@ -512,7 +560,6 @@ namespace CafeMenu
                 H23.Text = "0";
             }
         }
-
         private void Reset_Click(object sender, EventArgs e)
         {
             H1.Enabled = false;
@@ -610,37 +657,41 @@ namespace CafeMenu
             FillSnacksTextBoxes();
             FillDrinksTextBoxes();
             FillDessertsTextBoxes();
-
-            H24.Text = "0";
+            PayMoment.SelectedIndex = -1;
+            SellB.Text = "0%";
+            H24.Text = "";
 
         }
-      ///  private bool isPasswordCheckInProgress = false;
         private void SellB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (isInitializing) return; 
+            if (isInitializing) return;
+            int currentIndex = SellB.SelectedIndex;
+            if (currentIndex == lastDiscountIndex)
+                return;
+            lastDiscountIndex = currentIndex;
 
-           
-            if (SellB.SelectedIndex > 0 && !isPasswordChecked)
+            if (currentIndex > 0)
             {
                 using (PasswordForm passwordForm = new PasswordForm())
                 {
-                    if (passwordForm.ShowDialog() == DialogResult.OK && passwordForm.IsPasswordCorrect)
+                    var result = passwordForm.ShowDialog();
+                    if (result == DialogResult.OK && passwordForm.IsPasswordCorrect)
                     {
                         MessageBox.Show("Верно...", "Доступ разрешен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        isPasswordChecked = true; 
                     }
                     else
                     {
-                        SellB.SelectedIndex = 0; 
-                        return; 
+                        SellB.SelectedIndexChanged -= SellB_SelectedIndexChanged;
+                        SellB.SelectedIndex = 0;
+                        lastDiscountIndex = 0;
+                        SellB.SelectedIndexChanged += SellB_SelectedIndexChanged;
+                        return;
                     }
                 }
             }
 
-         
             CalculateTotal();
         }
-
         private List<Maindishes> GetMainDishes()
         {
             List<Maindishes> mainDishesList = new List<Maindishes>();
@@ -676,7 +727,6 @@ namespace CafeMenu
 
             return mainDishesList;
         }
-
         private List<Snack> GetSnacks()
         {
             List<Snack> snacksList = new List<Snack>();
@@ -712,7 +762,6 @@ namespace CafeMenu
 
             return snacksList;
         }
-
         private List<Drink> GetDrinks()
         {
             List<Drink> drinksList = new List<Drink>();
@@ -748,7 +797,6 @@ namespace CafeMenu
 
             return drinksList;
         }
-
         private List<Desserts> GetDesserts()
         {
             List<Desserts> dessertsList = new List<Desserts>();
@@ -784,7 +832,7 @@ namespace CafeMenu
 
             return dessertsList;
         }
-        private void FillMainDishesTextBoxes()
+        public void FillMainDishesTextBoxes()
         {
             var mainDishes = GetMainDishes();
 
@@ -799,8 +847,7 @@ namespace CafeMenu
             if (mainDishes.Count >= 9) H9.Text = mainDishes[8].Price.ToString();
             if (mainDishes.Count >= 10) H10.Text = mainDishes[9].Price.ToString();
         }
-
-        private void FillSnacksTextBoxes()
+        public void FillSnacksTextBoxes()
         {
             var snacks = GetSnacks();
 
@@ -809,8 +856,7 @@ namespace CafeMenu
             if (snacks.Count >= 3) H13.Text = snacks[2].Price.ToString();
             if (snacks.Count >= 4) H14.Text = snacks[3].Price.ToString();
         }
-
-        private void FillDrinksTextBoxes()
+        public void FillDrinksTextBoxes()
         {
             var drinks = GetDrinks();
 
@@ -819,8 +865,7 @@ namespace CafeMenu
             if (drinks.Count >= 3) H17.Text = drinks[2].Price.ToString();
             if (drinks.Count >= 4) H18.Text = drinks[3].Price.ToString();
         }
-
-        private void FillDessertsTextBoxes()
+        public void FillDessertsTextBoxes()
         {
             var desserts = GetDesserts();
 
@@ -830,7 +875,6 @@ namespace CafeMenu
             if (desserts.Count >= 4) H22.Text = desserts[3].Price.ToString();
             if (desserts.Count >= 5) H23.Text = desserts[4].Price.ToString();
         }
-
         private decimal GetAmount(CheckBox checkBox, TextBox quantityBox, string productName)
         {
             int quantity = 0;
@@ -847,7 +891,6 @@ namespace CafeMenu
             }
             return 0;
         }
-
         private decimal GetPriceFromDatabase(string productName)
         {
             decimal price = 0;
@@ -942,35 +985,44 @@ namespace CafeMenu
                 MessageBox.Show("Файл QR-кода не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         private void ssell_Click(object sender, EventArgs e)
         {
             CalculateTotal();
+
             if (PayMoment.SelectedItem == null)
             {
                 MessageBox.Show("Пожалуйста, выберите метод оплаты!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Останавливаем дальнейшее выполнение, пока не будет выбран метод
+                return;
             }
-            if (MessageBox.Show("Оплата прошла успешно?", "Подтверждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+            if (MessageBox.Show("Оплата прошла успешно?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
+            string paymentMethod = PayMoment.SelectedItem.ToString();
+            string tableNumber = Prompt.ShowDialog("Введите номер столика:", "Столик");
+
+            var orderedItems = GetOrderedItems();
+            if (orderedItems.Count == 0)
             {
-                string paymentMethod = PayMoment.SelectedItem?.ToString();
-                string tableNumber = Prompt.ShowDialog("Введите номер столика:", "Столик");
-
-                var orderedItems = GetOrderedItems();
-
-                if (orderedItems.Count == 0)
-                {
-                    MessageBox.Show("Вы не выбрали ни одного блюда!");
-                    return;
-                }
-                int discountPercent = GetDiscountPercent();
-                ReceiptGenerator.GenerateClientReceipt(orderedItems, paymentMethod, tableNumber, discountPercent);
-
-                var kitchenItems = orderedItems.Select(i => (i.Name, i.Quantity)).ToList();
-                KitchenOrderGenerator.GenerateKitchenOrder(kitchenItems, tableNumber);
-                MessageBox.Show("Чеки успешно созданы на рабочем столе!");
+                MessageBox.Show("Вы не выбрали ни одного блюда!");
+                return;
             }
+            int discountPercent = GetDiscountPercent();
+            decimal total = orderedItems.Sum(i => i.Price * i.Quantity);
+            decimal finalTotal = total - (total * discountPercent / 100);
+            Order newOrder = new Order
+            {
+                OrderDate = DateTime.Now,
+                TableNumber = int.TryParse(tableNumber, out var tn) ? tn : 0,
+                TotalAmount = finalTotal,
+                Discount = discountPercent,
+                PaymentMethod = paymentMethod
+            };
+            OrderService.SaveOrder(newOrder);
+            ReceiptGenerator.GenerateClientReceipt(newOrder, orderedItems);
+            var kitchenItems = orderedItems.Select(i => (i.Name, i.Quantity)).ToList();
+            KitchenOrderGenerator.GenerateKitchenOrder(kitchenItems, tableNumber, newOrder.DailyNumber);
+            MessageBox.Show($"Чек создан. Заказ №{newOrder.DailyNumber} сохранён!");
 
         }
         private List<(string Name, int Quantity, decimal Price)> GetOrderedItems()
@@ -1020,11 +1072,10 @@ namespace CafeMenu
         {
             Application.Exit();
         }
-
         private void измнеитьЦенуToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangePrice changePrice = new ChangePrice();
-            changePrice.Show();
+            DialogResult result = changePrice.ShowDialog();
         }
 
         private void ИзменитьпараметрыSQLсоединенияToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1032,11 +1083,52 @@ namespace CafeMenu
             ChangeSQL changeSQL = new ChangeSQL(); 
             changeSQL.Show();
         }
-
         private void изменитьПарольДляСкидкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangePasswd changePasswd = new ChangePasswd(); 
             changePasswd.Show();
+        }
+        private void поддержкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Пожалуйста, в обращении укажите:\n\n- Ваше имя\n- Краткое описание проблемы\n- Что именно не работает или вызывает вопросы.\n\nПишите вежливо и по существу. Спасибо!");
+            HelpForm helpForm = new HelpForm();
+            helpForm.Show();
+        }
+        private void администраторToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string fileName = "Руководство_администратора_CafeMenu.pdf";
+            string filePath = Path.Combine(Application.StartupPath, fileName);
+
+            if (File.Exists(filePath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = filePath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                MessageBox.Show("Файл не найден: " + filePath);
+            }
+        }
+        private void соToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string fileName = "Руководство_пользователя_CafeMenu.pdf";
+            string filePath = Path.Combine(Application.StartupPath, fileName);
+
+            if (File.Exists(filePath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = filePath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                MessageBox.Show("Файл не найден: " + filePath);
+            }
         }
     }
 }
